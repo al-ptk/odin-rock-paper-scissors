@@ -2,54 +2,62 @@
 
 // Helper functions
 let p = (arg) => console.log(arg);
-let upFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+// Capitilize first letter string
+let capFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+
 
 // Main functions
 function computerPlay () {
     const signs = ['rock','paper','scissors'];
+
+    // This is how you pick an item randomly from an array in JS
     return signs[Math.floor(Math.random() * signs.length)];
 }
 
+
 function playRound (playerSelection, computerSelection) {
 
-    let ps = playerSelection.toLowerCase();
-    let cs = computerSelection.toLowerCase();
+    let playerSelection = playerSelection.toLowerCase();
+    let computerSelection = computerSelection.toLowerCase();
 
     //First test for tie
-    if (ps === cs) {
-        return `You tie! ${upFirst(ps)} is equal to ${upFirst(cs)}`;
+    if (playerSelection === computerSelection) {
+        return `You tie! ${capFirst(playerSelection)} is equal to ${capFirst(computerSelection)}`;
     } else {
 
-        if (ps === 'rock') {
-            if (cs === 'scissors'){
-                return `You win! ${upFirst(ps)} beats ${upFirst(cs)}!`
+        if (playerSelection === 'rock') {
+            if (computerSelection === 'scissors'){
+                return `You win! ${capFirst(playerSelection)} beats ${capFirst(computerSelection)}!`
             } else {
-                return `You lose! ${upFirst(ps)} gets beaten by ${upFirst(cs)}!`
+                return `You lose! ${capFirst(playerSelection)} gets beaten by ${capFirst(computerSelection)}!`
             }
         }
 
-        else if (ps === 'paper') {
-            if (cs === 'rock'){
-                return `You win! ${upFirst(ps)} beats ${upFirst(cs)}!`
+        else if (playerSelection === 'paper') {
+            if (computerSelection === 'rock'){
+                return `You win! ${capFirst(playerSelection)} beats ${capFirst(computerSelection)}!`
             } else {
-                return `You lose! ${upFirst(ps)} gets beaten by ${upFirst(cs)}!`
+                return `You lose! ${capFirst(playerSelection)} gets beaten by ${capFirst(computerSelection)}!`
             }
         }
 
-        else if (ps === 'scissors') {
-            if (cs === 'paper'){
-                return `You win! ${upFirst(ps)} beats ${upFirst(cs)}!`
+        else if (playerSelection === 'scissors') {
+            if (computerSelection === 'paper'){
+                return `You win! ${capFirst(playerSelection)} beats ${capFirst(computerSelection)}!`
             } else {
-                return `You lose! ${upFirst(ps)} gets beaten by ${upFirst(cs)}!`
+                return `You lose! ${capFirst(playerSelection)} gets beaten by ${capFirst(computerSelection)}!`
             }
         }
     }
     return "Something went wrong";
 }
 
+
 function game () {
-    let p_score = 0;
-    let c_score = 0;
+    let playerScore = 0;
+    let computerScore = 0;
 
     for (let i = 0; i < 5; i++) {
         let result = playRound(
@@ -59,16 +67,16 @@ function game () {
         // Find out score
         let res = result.slice(0,5);
         if (res === "You w") {
-            p_score+=1;
+            playerScore+=1;
         } else if (res === "You l") {;
-            c_score+=1;
+            computerScore+=1;
         } 
-
 
         p(result);
     }
 
-    p(`Score > Player: ${p_score} | Computer ${c_score}`);
+    p(`Score > Player: ${playerScore} | Computer ${computerScore}`);
 }
+
 
 game();
