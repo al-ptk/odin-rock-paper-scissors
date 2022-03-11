@@ -4,10 +4,9 @@
 let p = (arg) => console.log(arg);
 let upFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-// Possible signs
-const signs = ['rock','paper','scissors'];
-
+// Main functions
 function computerPlay () {
+    const signs = ['rock','paper','scissors'];
     return signs[Math.floor(Math.random() * signs.length)];
 }
 
@@ -48,7 +47,11 @@ function playRound (playerSelection, computerSelection) {
     return "Something went wrong";
 }
 
-
-// Testing one round
-//let pick = prompt("Rock, Paper or Scissors?");
-p(playRound('paper', 'rock'));
+function game () {
+    for (let i = 0; i < 5; i++) {
+        p(playRound(
+            prompt("Rock, paper or scissors", computerPlay()),
+            computerPlay()
+            ));
+    }
+}
