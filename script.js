@@ -48,10 +48,27 @@ function playRound (playerSelection, computerSelection) {
 }
 
 function game () {
+    let p_score = 0;
+    let c_score = 0;
+
     for (let i = 0; i < 5; i++) {
-        p(playRound(
-            prompt("Rock, paper or scissors", computerPlay()),
-            computerPlay()
-            ));
+        let result = playRound(
+            prompt("Rock, paper or scissors", computerPlay()), 
+            computerPlay());
+        
+        // Find out score
+        let res = result.slice(0,5);
+        if (res === "You w") {
+            p_score+=1;
+        } else if (res === "You l") {;
+            c_score+=1;
+        } 
+
+
+        p(result);
     }
+
+    p(`Score > Player: ${p_score} | Computer ${c_score}`);
 }
+
+game();
