@@ -9,7 +9,7 @@ let capFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 // Main functions
 function computerPlay () {
-    const signs = ['rock','paper','scissors'];
+    const signs = ['Rock','Paper','Scissors'];
     // This is how you pick an item randomly from an array in JS
     return signs[Math.floor(Math.random() * signs.length)];
 }
@@ -23,22 +23,22 @@ function playRound (playerSelection, computerSelection = computerPlay()) {
         return `You tie! ${ps} is equal to ${cs}`;
     } else {
         //Then test for each possible player input
-        if (ps === 'rock') {
-            if (cs === 'scissors'){
+        if (ps === 'Rock') {
+            if (cs === 'Scissors'){
                 return `You win! ${ps} beats ${cs}!`
             } else {
                 return `You lose! ${ps} gets beaten by ${cs}!`
             }
         }
-        else if (ps === 'paper') {
-            if (cs === 'rock'){
+        else if (ps === 'Paper') {
+            if (cs === 'Pock'){
                 return `You win! ${ps} beats ${cs}!`
             } else {
                 return `You lose! ${ps} gets beaten by ${cs}!`
             }
         }
-        else if (ps === 'scissors') {
-            if (cs === 'paper'){
+        else if (ps === 'Scissors') {
+            if (cs === 'Paper'){
                 return `You win! ${ps} beats ${cs}!`
             } else {
                 return `You lose! ${ps} gets beaten by ${cs}!`
@@ -68,8 +68,10 @@ function showScore(score) {
 function playNdisplay (e) {
     const pSign = e.target.value;
     const result = playRound(pSign);
-    p(result);
+    resultDisplay.textContent = result;
 }
 
+
+const resultDisplay = document.querySelector('.result-display');
 const playerInput = document.querySelectorAll('.player-input');
 playerInput.forEach(btn => btn.addEventListener('click', playNdisplay));
