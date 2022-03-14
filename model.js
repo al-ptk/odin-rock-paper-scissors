@@ -15,33 +15,33 @@ function computerPlay () {
 }
 
 
-function playRound (playerSelection, computerSelection) {
-    let ps = playerSelection.toLowerCase();
-    let cs = computerSelection.toLowerCase();
+function playRound (playerSelection, computerSelection = computerPlay()) {
+    let ps = capFirst(playerSelection.toLowerCase());
+    let cs = capFirst(computerSelection.toLowerCase());
     //First test for tie
     if (ps === cs) {
-        return `You tie! ${capFirst(ps)} is equal to ${capFirst(cs)}`;
+        return `You tie! ${ps} is equal to ${cs}`;
     } else {
         //Then test for each possible player input
         if (ps === 'rock') {
             if (cs === 'scissors'){
-                return `You win! ${capFirst(ps)} beats ${capFirst(cs)}!`
+                return `You win! ${ps} beats ${cs}!`
             } else {
-                return `You lose! ${capFirst(ps)} gets beaten by ${capFirst(cs)}!`
+                return `You lose! ${ps} gets beaten by ${cs}!`
             }
         }
         else if (ps === 'paper') {
             if (cs === 'rock'){
-                return `You win! ${capFirst(ps)} beats ${capFirst(cs)}!`
+                return `You win! ${ps} beats ${cs}!`
             } else {
-                return `You lose! ${capFirst(ps)} gets beaten by ${capFirst(cs)}!`
+                return `You lose! ${ps} gets beaten by ${cs}!`
             }
         }
         else if (ps === 'scissors') {
             if (cs === 'paper'){
-                return `You win! ${capFirst(ps)} beats ${capFirst(cs)}!`
+                return `You win! ${ps} beats ${cs}!`
             } else {
-                return `You lose! ${capFirst(ps)} gets beaten by ${capFirst(cs)}!`
+                return `You lose! ${ps} gets beaten by ${cs}!`
             }
         }
     }
@@ -49,14 +49,8 @@ function playRound (playerSelection, computerSelection) {
 }
 
 
-function calcResult () {
-    return playRound( prompt("Rock, paper or scissors", computerPlay()), computerPlay());
-}
-
-
 function updateScore (score, result) {
     let res = result.slice(0,5);
-
     if (res === "You w") { // Player wins
         score[0] += 1;
     } else if (res === "You l") { // Computer wins
@@ -69,3 +63,13 @@ function showScore(score) {
     p(`Score > Player: ${score[0]} | Computer ${score[1]}`);
 }
 
+// CONTROLLER LOGIC
+
+function playNdisplay (e) {
+    const pSign = e.target.value;
+    const result = playRound(pSign);
+    p(result);
+}
+
+const playerInput = document.querySelectorAll('.player-input');
+playerInput.forEach(btn => btn.addEventListener('click', playNdisplay));
