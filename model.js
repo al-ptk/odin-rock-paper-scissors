@@ -16,6 +16,8 @@ function computerPlay () {
 
 
 function playRound (playerSelection, computerSelection = computerPlay()) {
+    // if (playerSelection === undefined) console.log('It happened.');
+
     let ps = capFirst(playerSelection.toLowerCase());
     let cs = capFirst(computerSelection.toLowerCase());
     //First test for tie
@@ -63,13 +65,18 @@ function showScore(score) {
     return ` Player: ${score[0]} | Computer ${score[1]}`;
 }
 
+function isGamerOver() {
+    return (score[0] == totalScore || score[1] == totalScore);
+}
+
 // CONTROLLER LOGIC
 const score = [0,0];
+const totalScore = 5;
 
 function playNdisplay (e) {
-    if (score[0] == 5) {
+    if (score[0] == totalScore) {
         resultDisplay.textContent = 'Game Over! Player wins 5 rounds!';
-    } else if (score[1] == 5) {
+    } else if (score[1] == totalScore) {
         resultDisplay.textContent = 'Game Over! Computer wins 5 rounds!';
     } else {
         const pSign = e.target.value;
@@ -80,8 +87,17 @@ function playNdisplay (e) {
     scoreDisplay.textContent = showScore(score);
 }
 
+const waitToPlay = (e) => {
+    let timer = 0;
+    if (!isGamerOver()) {
+        resultDisplay.textContent = 'Calculating result...';
+        timer = 300;
+    }
+    setTimeout(playNdisplay, timer, e);
+};
+
 const scoreDisplay = document.querySelector('.current-score');
 scoreDisplay.textContent = showScore(score);
 const resultDisplay = document.querySelector('.result-display');
-const playerInput = document.querySelectorAll('.player-input');
-playerInput.forEach(btn => btn.addEventListener('click', playNdisplay));
+const playerInput = document.querySelectorAll('.sign');
+playerInput.forEach(btn => btn.addEventListener('click', waitToPlay));
