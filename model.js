@@ -31,7 +31,7 @@ function playRound (playerSelection, computerSelection = computerPlay()) {
             }
         }
         else if (ps === 'Paper') {
-            if (cs === 'Pock'){
+            if (cs === 'Rock'){
                 return `You win! ${ps} beats ${cs}!`
             } else {
                 return `You lose! ${ps} gets beaten by ${cs}!`
@@ -60,18 +60,28 @@ function updateScore (score, result) {
 
 
 function showScore(score) {
-    p(`Score > Player: ${score[0]} | Computer ${score[1]}`);
+    return ` Player: ${score[0]} | Computer ${score[1]}`;
 }
 
 // CONTROLLER LOGIC
+const score = [0,0];
 
 function playNdisplay (e) {
-    const pSign = e.target.value;
-    const result = playRound(pSign);
-    resultDisplay.textContent = result;
+    if (score[0] == 5) {
+        resultDisplay.textContent = 'Game Over! Player wins 5 rounds!';
+    } else if (score[1] == 5) {
+        resultDisplay.textContent = 'Game Over! Computer wins 5 rounds!';
+    } else {
+        const pSign = e.target.value;
+        const result = playRound(pSign);
+        resultDisplay.textContent = result;
+        updateScore(score, result);
+    }
+    scoreDisplay.textContent = showScore(score);
 }
 
-
+const scoreDisplay = document.querySelector('.current-score');
+scoreDisplay.textContent = showScore(score);
 const resultDisplay = document.querySelector('.result-display');
 const playerInput = document.querySelectorAll('.player-input');
 playerInput.forEach(btn => btn.addEventListener('click', playNdisplay));
